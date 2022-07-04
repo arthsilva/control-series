@@ -23,12 +23,16 @@ class SeriesController extends Controller
 
     public function store(Request $request)
     {
-        $nameSerie = $request->input("name");
-        $serie = new Serie();
-        $serie->name = $nameSerie;
-        $serie->save();
+        // $nameSerie = $request->input("name");
+        // $serie = new Serie();
+        // $serie->name = $nameSerie;
+        // $serie->save();
 
-        return redirect('/series');
+        //Outra forma para resgatar os valores de todos os inputs que eu especificar na variavel fillable no model Serie (Mass Assignment)
+        // dd($request->all());
+        Serie::create($request->all());
+
+        return to_route('series.index');
 
 
     }

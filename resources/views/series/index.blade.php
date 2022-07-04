@@ -1,6 +1,6 @@
 <x-layout title="Séries">
 
-    <a href="/series/criar" class="btn btn-primary mb-2">Adicionar</a>
+    <a href= "{{ route('series.create') }}" class="btn btn-primary mb-2">Adicionar</a>
 
     <div class="mb-3">
         <ul class="list-group">
