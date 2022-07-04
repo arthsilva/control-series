@@ -19,8 +19,10 @@ Route::get('/', function () {
 });
 
 //usado quando uso as actions como rotas
-Route::resource('/series', SeriesController::class);
+Route::resource('/series', SeriesController::class)
+    ->only(['index', 'create', 'store', 'destroy']);
 
+// Route::post('/series/destroy/{serie}', [SeriesController::class, 'destroy'])->name('series.destroy');
 // Route::controller(SeriesController::class)->group(function () {
 //     Route::get('/series', 'index')->name('series.index');
 //     Route::get('/series/criar', 'create')->name('series.create');

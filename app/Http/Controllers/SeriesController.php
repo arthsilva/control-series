@@ -10,10 +10,12 @@ class SeriesController extends Controller
     public function index(Request $request)
     {
         $series = Serie::all();
+        $mensageSuccess = session('mensage.success');
         // $series = Serie::query()->orderBy('nome')->get();
         // $series = Serie::query()->orderBy('nome', 'desc')->get();
 
-        return view('series.index', compact('series'));
+        return view('series.index')->with('series', $series)
+            ->with('mensageSuccess', $mensageSuccess);
     }
 
     public function create()
@@ -23,17 +25,17 @@ class SeriesController extends Controller
 
     public function store(Request $request)
     {
-        // $nameSerie = $request->input("name");
-        // $serie = new Serie();
-        // $serie->name = $nameSerie;
-        // $serie->save();
+        $serie = Serie::create($request->all());
 
-        //Outra forma para resgatar os valores de todos os inputs que eu especificar na variavel fillable no model Serie (Mass Assignment)
-        // dd($request->all());
-        Serie::create($request->all());
+        return to_route('series.index')
+            ->with('mensage.success', "Série '$serie->name' foi inserida com sucesso!");
+    }
 
-        return to_route('series.index');
+    public function destroy(Serie $series)
+    {
+        $series->delete();
 
-
+        return to_route('series.index')
+            ->with('mensage.success', "Série '$series->name' foi removida com sucesso!");
     }
 }
