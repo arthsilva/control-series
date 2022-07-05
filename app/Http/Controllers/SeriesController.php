@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Serie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redis;
 
 class SeriesController extends Controller
 {
@@ -37,5 +38,19 @@ class SeriesController extends Controller
 
         return to_route('series.index')
             ->with('mensage.success', "Série '$series->name' foi removida com sucesso!");
+    }
+    
+    public function edit(Serie $series)
+    {
+        return view('series.edit')->with('serie', $series);
+    }
+
+    public function update(Serie $series, Request $request)
+    {
+        $series->fill($request->all());
+        $series->save();
+
+        return to_route('series.index')
+            ->with('mensage.success', "Série '$series->name' foi alteado com sucesso!");
     }
 }
